@@ -103,6 +103,8 @@ async function seedRevenue() {
 
 export async function GET() {
   try {
+    clearDatabase();
+    
     const result = await sql.begin((sql) => [
       seedUsers(),
       seedCustomers(),
@@ -110,8 +112,13 @@ export async function GET() {
       seedRevenue(),
     ]);
 
-    return Response.json({ message: 'Database seeded successfully' });
+    return Response.json({ message: 'Database reset and seeded successfully' });
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
+}
+
+async function clearDatabase() {
+  await sql`DROP TABLE IF EXISTS revenue, invoices, customers, users CASCADE;`;
+  console.log('Database cleared!');
 }
