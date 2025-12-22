@@ -35,7 +35,7 @@ export async function fetchLatestInvoices() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    console.log('Fetching revenue data...');
+    console.log('Fetching latest invoices data...');
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     const data = await sql<LatestInvoiceRaw[]>`
@@ -50,7 +50,7 @@ export async function fetchLatestInvoices() {
       amount: formatCurrency(invoice.amount),
     }));
 
-    console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 1.5 seconds.');
 
     return latestInvoices;
   } catch (error) {
